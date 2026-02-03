@@ -17,18 +17,7 @@ public class UserInterface {
         int n = Integer.parseInt(sc.nextLine());
 
         for (int i = 0; i < n; i++) {
-            System.out.println("Enter vessel details (vesselId:vesselName:averageSpeed:vesselType)");
-            String input = sc.nextLine();
-
-            String[] data = input.split(":");
-
-            Vessel vessel = new Vessel(
-                    data[0],
-                    data[1],
-                    Double.parseDouble(data[2]),
-                    data[3]
-            );
-
+            Vessel vessel = readVessel(sc);
             util.addVesselPerformance(vessel);
         }
 
@@ -39,29 +28,42 @@ public class UserInterface {
         Vessel foundVessel = util.getVesselById(searchId);
 
         if (foundVessel != null) {
-            System.out.println(
-                    foundVessel.getVesselId() + " " +
-                            foundVessel.getVesselName() + " " +
-                            foundVessel.getAverageSpeed() + " " +
-                            foundVessel.getVesselType()
-            );
+            displayVessel(foundVessel);
         } else {
             System.out.println("No vessel found");
         }
 
         // UC4: High performance vessels
-        List<Vessel> highPerfList = util.getHighPerformanceVessels();
-
         System.out.println("High performance vessels:");
+        List<Vessel> highPerfList = util.getHighPerformanceVessels();
         for (Vessel v : highPerfList) {
-            System.out.println(
-                    v.getVesselId() + " " +
-                            v.getVesselName() + " " +
-                            v.getAverageSpeed() + " " +
-                            v.getVesselType()
-            );
+            displayVessel(v);
         }
 
         sc.close();
+    }
+
+    // Helper method to read vessel details
+    private static Vessel readVessel(Scanner sc) {
+        System.out.println("Enter vessel details (vesselId:vesselName:averageSpeed:vesselType)");
+        String input = sc.nextLine();
+        String[] data = input.split(":");
+
+        return new Vessel(
+                data[0],
+                data[1],
+                Double.parseDouble(data[2]),
+                data[3]
+        );
+    }
+
+    // Helper method to display vessel
+    private static void displayVessel(Vessel v) {
+        System.out.println(
+                v.getVesselId() + " " +
+                        v.getVesselName() + " " +
+                        v.getAverageSpeed() + " " +
+                        v.getVesselType()
+        );
     }
 }
