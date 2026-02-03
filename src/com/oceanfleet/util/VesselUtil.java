@@ -18,3 +18,11 @@ public class VesselUtil {
         return vesselList;
     }
 }
+public Vessel getVesselById(String vesselId) {
+    for (Vessel vessel : vesselList) {
+        if (vessel.getVesselId().equals(vesselId)) {
+            return vessel;
+        }
+    }
+    return null;
+}
