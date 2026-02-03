@@ -1,3 +1,5 @@
+package com.oceanfleet.model;
+
 public class Vessel {
 
     private String vesselId;
