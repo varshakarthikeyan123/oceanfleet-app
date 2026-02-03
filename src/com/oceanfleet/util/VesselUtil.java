@@ -8,21 +8,48 @@ public class VesselUtil {
 
     private List<Vessel> vesselList = new ArrayList<>();
 
-    // Method to add vessel performance
+    // UC2: Add vessel
     public void addVesselPerformance(Vessel vessel) {
         vesselList.add(vessel);
     }
 
-    // Getter for vessel list (used in later UCs)
+    // UC3: Retrieve vessel by ID
+    public Vessel getVesselById(String vesselId) {
+        for (Vessel vessel : vesselList) {
+            if (vessel.getVesselId().equals(vesselId)) {
+                return vessel;
+            }
+        }
+        return null;
+    }
+
+    // UC4: Get high performance vessels
+    public List<Vessel> getHighPerformanceVessels() {
+        List<Vessel> result = new ArrayList<>();
+
+        if (vesselList.isEmpty()) {
+            return result;
+        }
+
+        double maxSpeed = vesselList.get(0).getAverageSpeed();
+
+        for (Vessel vessel : vesselList) {
+            if (vessel.getAverageSpeed() > maxSpeed) {
+                maxSpeed = vessel.getAverageSpeed();
+            }
+        }
+
+        for (Vessel vessel : vesselList) {
+            if (vessel.getAverageSpeed() == maxSpeed) {
+                result.add(vessel);
+            }
+        }
+
+        return result;
+    }
+
+    // Getter (optional, useful later)
     public List<Vessel> getVesselList() {
         return vesselList;
     }
-}
-public Vessel getVesselById(String vesselId) {
-    for (Vessel vessel : vesselList) {
-        if (vessel.getVesselId().equals(vesselId)) {
-            return vessel;
-        }
-    }
-    return null;
 }
